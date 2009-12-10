@@ -34,16 +34,20 @@ module SMTP
         network << "Line of Text!"
       end
       
-      it "should find the acknowledge code in multiline responses" do
-        @response = "Connected to mailhost.ksu.edu.\r\nEscape character is '^]'.\r\n220 smtp3....>"
-        network.acknowledge.should == 220
-      end
-      
-      it "should find the acknowledge code in singleline responses" do
-        @response = "250 2.1.0 <neilsen@ksu.edu>... Sender ok\r\n"
-        network.acknowledge.should == 250
-      end
-    
+      describe "reading acknowledges" do
+              
+        it "should find the acknowledge code in multiline responses" do
+          @network.sock.stub!(:readline).and_return "Connected to mailhost.ksu.edu.", 
+                                                    "Escape character is '^]'.",
+                                                    "220 smtp3....>"
+          network.acknowledge.should == 220
+        end
+        
+        it "should find the acknowledge code in singleline responses" do
+          @network.sock.stub!(:readline).and_return "250 2.1.0 <neilsen@ksu.edu>... Sender ok"
+          network.acknowledge.should == 250
+        end
+      end   
     end    
   end
 end
