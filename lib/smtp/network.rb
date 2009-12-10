@@ -5,7 +5,7 @@ module SMTP
     attr_accessor :sock
     
     def connect(options)
-      sock = create_connection(options)
+      self.sock = create_connection(options)
     end
     
     def close
