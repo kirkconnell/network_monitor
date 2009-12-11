@@ -30,10 +30,6 @@ while true
       mailer.rcpt_to "carlos.kirkconnell@gmail.com"
       mailer.mail "IP Datagram treshhold has been exceeded for host: '#{ARGV[0]}'"
       mailer.send_and_close
-      
-      print "Email Sent."
-    else
-      print "Condition OK."
     end
   end
   
