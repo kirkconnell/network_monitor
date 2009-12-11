@@ -5,12 +5,38 @@ $:.unshift(lib_dir)
 $:.uniq!
 require 'network_monitor'
 
-            
-sock = UDPSocket.open
-sock.connect(ARGV[0], 161)            
-sock.send(SMNP::Request.new.to_s, 0)
+previous_datagrams = 0
+while true
+  sock = UDPSocket.open
+  sock.connect(ARGV[0], 161)            
+  sock.send(SMNP::Request.new.to_s, 0)
 
-data = sock.recvfrom(47)[0]
+  data = sock.recvfrom(47)[0]
 
-resp = SMNP::Response.new(data)
-print "Received IP Datagrams: #{resp.datagram_counter}\n"
+  resp = SMNP::Response.new(data)
+  current_datagrams = resp.datagram_counter
+  print "Host '#{ARGV[0]}' reported #{current_datagrams} IP Datagrams received.\n"
+  
+  if previous_datagrams > 0
+    difference = current_datagrams - previous_datagrams
+    print "'#{difference}' new IP Datagrams have been received since last query.\n"
+    if difference >= ARGV[1].to_i
+      print "The difference exceeds the threshhold. Sending an email.\n"
+      
+      mailer = SMTP::Mailer.new(SMTP::Network.new)
+      mailer.connect_to :host => ARGV[3], :port => ARGV[4]
+      mailer.hello ARGV[3]
+      mailer.mail_from "carlosk@ksu.edu"
+      mailer.rcpt_to "carlos.kirkconnell@gmail.com"
+      mailer.mail "IP Datagram treshhold has been exceeded for host: '#{ARGV[0]}'"
+      mailer.send_and_close
+      
+      print "Email Sent."
+    else
+      print "Condition OK."
+    end
+  end
+  
+  previous_datagrams = current_datagrams
+  sleep(60)
+end
