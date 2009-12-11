@@ -10,5 +10,7 @@ sock = UDPSocket.open
 sock.connect(ARGV[0], 161)            
 sock.send(SMNP::Request.new.to_s, 0)
 
-resp = SMNP::Response.new(sock.recvfrom(47))
+data = sock.recvfrom(47)[0]
+
+resp = SMNP::Response.new(data)
 print "Received IP Datagrams: #{resp.datagram_counter}\n"
