@@ -11,4 +11,4 @@ sock.connect(ARGV[0], 161)
 sock.send(SMNP::Request.new.to_s, 0)
 
 resp = SMNP::Response.new(sock.recvfrom(47))
-print "Received IP Datagrams: #{resp}\n"
+print "Received IP Datagrams: #{resp.datagram_counter}\n"
