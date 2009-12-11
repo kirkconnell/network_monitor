@@ -8,11 +8,11 @@ require 'network_monitor'
 port = ARGS[1].to_i  unless ARGV[1].nil?
 
 print "FROM: "
-sender = readline
+sender = STDIN.readline
 print "TO: "
-to = readline
+to = STDIN.readline
 print "DATA: "
-data = readline
+data = STDIN.readline
 
 mailer = SMTP::Mailer.new(SMTP::Network.new)
 mailer.connect_to :host => ARGV[0], :port => port
