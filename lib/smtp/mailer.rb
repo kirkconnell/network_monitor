@@ -40,19 +40,23 @@ module SMTP
     end
     
     def connection_ack
-      raise "Invalid connecion acknowledgement response." unless @network.acknowledge == 220
+      ack = @network.acknowledge
+      raise "Invalid connecion acknowledgement response. Ack code received: #{ack}." unless ack == 220
     end
     
     def mail_ok_ack
-      raise "Invalid OK acknowledgement response." unless @network.acknowledge == 250
+      ack = @network.acknowledge
+      raise "Invalid OK acknowledgement response. Ack code received: #{ack}." unless ack == 250
     end
     
     def data_ack
-      raise "Invalid data acknowledgement response." unless @network.acknowledge == 354
+      ack = @network.acknowledge
+      raise "Invalid data acknowledgement response. Ack code received: #{ack}." unless ack == 354
     end
     
     def quit_ack
-      raise "Invalid quit acknowledgement response." unless @network.acknowledge == 221
+      ack = @network.acknowledge
+      raise "Invalid quit acknowledgement response. Ack code received: #{ack}." unless ack == 221
     end
     
   end
