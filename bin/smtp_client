@@ -16,7 +16,7 @@ data = STDIN.readline
 
 mailer = SMTP::Mailer.new(SMTP::Network.new)
 mailer.connect_to :host => ARGV[0], :port => port
-mailer.hello
+mailer.hello ARGV[0]
 mailer.mail_from sender
 mailer.rcpt_to recipient
 mailer.mail data
