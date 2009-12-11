@@ -20,6 +20,6 @@ mailer.hello
 mailer.mail_from sender
 mailer.rcpt_to recipient
 mailer.mail data
-mailer.send_and_quit
+mailer.send_and_close
 
 print "Message Accepted for Delivery.\n"
