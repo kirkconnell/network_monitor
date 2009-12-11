@@ -8,7 +8,7 @@ require 'network_monitor'
             
 sock = UDPSocket.open
 sock.connect(ARGV[0], 161)            
-sock.send(SNMP::Request.new, 0)
+sock.send(SMNP::Request.new, 0)
 
-resp = SNMP::Response.new(sock.recvfrom(47))
+resp = SMNP::Response.new(sock.recvfrom(47))
 print "Received IP Datagrams: #{resp}\n"
