@@ -24,8 +24,8 @@ while true
       print "The difference exceeds the threshhold. Sending an email.\n"
       
       mailer = SMTP::Mailer.new(SMTP::Network.new)
-      mailer.connect_to :host => ARGV[3], :port => ARGV[4]
-      mailer.hello ARGV[3]
+      mailer.connect_to :host => ARGV[2], :port => ARGV[3]
+      mailer.hello ARGV[2]
       mailer.mail_from "carlosk@ksu.edu"
       mailer.rcpt_to "carlos.kirkconnell@gmail.com"
       mailer.mail "IP Datagram treshhold has been exceeded for host: '#{ARGV[0]}'"
