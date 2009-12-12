@@ -1,0 +1,25 @@
+Note: Both executable scripts are located in the ./bin directory.
+
+Assignment #1
+
+To run the first assignment use the following command:
+
+./smtp_client HOST [PORT]
+
+Where HOST is the name of the mail server and PORT is the port number to request. The port argument is optional. If you omit it then the script will use port 25.
+
+Example:
+
+./smtp_client mail.ksu.edu
+
+Assignment #2
+
+To run the second assignment use the following command:
+
+./monitor SNMP_AGENT THRESHOLD MAILHOST [MAILPORT]
+
+Where SNMP_AGENT is the host name of the snmp agent you want the monitor to query.
+THRESHOLD is the amount of IP datagrams that will be needed to send and email,
+MAILHOST is the mail server to use to send the email when the datagram threshold is broken.
+MAILPORT is the port number to use to connect to the mail server. This parameter is optional. If omitted port 25 is used.
+
